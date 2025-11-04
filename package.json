@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon --exec ts-node app.ts",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -26,10 +27,17 @@
     "mongoose": "^8.19.2"
   },
   "devDependencies": {
+    "@swc/core": "^1.15.0",
+    "@swc/jest": "^0.2.39",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.10.0",
+    "@types/supertest": "^6.0.3",
+    "jest": "^30.2.0",
     "nodemon": "^3.1.10",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },

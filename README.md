@@ -27,3 +27,6 @@ npm init -y
 npm install express mongoose dotenv cors
 npm install -D typescript @types/express @types/node @types/cors ts-node nodemon
 npm install dotenv
+npm install --save-dev jest
+npm install --save-dev @swc/jest @swc/core
+npm install --save-dev supertest @types/supertest

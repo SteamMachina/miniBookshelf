@@ -7,7 +7,7 @@ const bookController = new BookController();
 // routes
 router.post("/", (req, res) => bookController.createBook(req, res));
 router.get("/", (req, res) => bookController.getAllBooks(req, res));
-router.get("/:id", (req, res) => bookController.getByid(req, res));
 router.get("/search", (req, res) => bookController.advancedSearch(req, res));
+router.get("/:id", (req, res) => bookController.getByid(req, res));
 
 export default router;
