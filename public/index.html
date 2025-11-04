@@ -6,94 +6,9 @@
   <body>
     <h1>MiniBookshelf API</h1>
 
-    <h2>Create Book</h2>
-    <form id="createForm">
-      <input type="text" id="title" placeholder="Title" required /><br />
-      <input type="text" id="author" placeholder="Author" required /><br />
-      <input type="text" id="genre" placeholder="Genre" required /><br />
-      <input type="number" id="year" placeholder="Year" required /><br />
-      <textarea id="description" placeholder="Description"></textarea><br />
-      <button type="submit">Create Book</button>
-    </form>
-
-    <h2>Search Books</h2>
-    <form id="searchForm">
-      <input type="text" id="keyword" placeholder="Keyword" /><br />
-      <input type="text" id="genre" placeholder="Genre" /><br />
-      <input type="number" id="year" placeholder="Year" /><br />
-      <button type="submit">Search</button>
-    </form>
-
-    <h2>All Books</h2>
-    <button onclick="loadBooks()">Load All Books</button>
-    <div id="results"></div>
-
-    <script>
-      const API_URL = "http://localhost:3000/books";
-
-      document
-        .getElementById("createForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const data = {
-            title: document.getElementById("title").value,
-            author: document.getElementById("author").value,
-            genre: document.getElementById("genre").value,
-            year: parseInt(document.getElementById("year").value),
-            description: document.getElementById("description").value,
-          };
-
-          try {
-            const res = await fetch(API_URL, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
-            });
-            const result = await res.json();
-            document.getElementById("results").innerHTML =
-              "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
-            e.target.reset();
-          } catch (err) {
-            document.getElementById("results").innerHTML =
-              "Error: " + err.message;
-          }
-        });
-
-      document
-        .getElementById("searchForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const keyword = document.getElementById("keyword").value;
-          const genre = document.getElementById("genre").value;
-          const year = document.getElementById("year").value;
-
-          let url = API_URL + "/search?";
-          if (keyword) url += "keyword=" + keyword + "&";
-          if (genre) url += "genre=" + genre + "&";
-          if (year) url += "year=" + year + "&";
-
-          try {
-            const res = await fetch(url);
-            const result = await res.json();
-            document.getElementById("results").innerHTML =
-              "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
-          } catch (err) {
-            document.getElementById("results").innerHTML =
-              "Error: " + err.message;
-          }
-        });
-
-      async function loadBooks() {
-        try {
-          const res = await fetch(API_URL);
-          const result = await res.json();
-          document.getElementById("results").innerHTML =
-            "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
-        } catch (err) {
-          document.getElementById("results").innerHTML =
-            "Error: " + err.message;
-        }
-      }
-    </script>
+    <p>createBook</p>
+    <p>getAllBooks</p>
+    <p>getByid</p>
+    <p>advancedSearch</p>
   </body>
 </html>
