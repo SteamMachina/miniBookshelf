@@ -4,6 +4,8 @@ import express from "express";
 const router = express.Router();
 const bookController = new BookController();
 
+router.use(express.json());
+
 /**
  * @openapi
  * components:
@@ -21,6 +23,20 @@ const bookController = new BookController();
  *           type: string
  *           format: email
  *           example: "alice@example.com"
+ *     Error:
+ *       type: object
+ *       properties:
+ *         success:
+ *           type: boolean
+ *           example: false
+ *         message:
+ *           type: string
+ *           example: "Error"
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 
 // routes
@@ -65,6 +81,8 @@ router.get("/hello", (req, res) => {
  * /books/users/{id}:
  *   get:
  *     summary: Donner un id
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -78,11 +96,57 @@ router.get("/hello", (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $red: "#/components/schemas/User"
+ *               $ref: "#/components/schemas/User"
+ *       404:
+ *         description: Utilisateur non trouvé
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Error"
+ *       400:
+ *         description: Requête invalide
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Error"
+ *       500:
+ *         description: Erreur serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Error"
  */
 router.get("/users/:id", (req, res) => {
   const { id } = req.params;
   res.json({ id, name: "Lily", email: "lily.kami@efrei.net" });
+});
+
+/**
+ * @openapi
+ * /books/users:
+ *   post:
+ *     summary: renseigner un nom et email
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *         description: name et email a renvoyer
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/User"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/User"
+ */
+router.post("/users", (req, res) => {
+  const user = req.body;
+  console.log(user);
+  res.json({ user });
 });
 router.get("/:id", (req, res) => bookController.getByid(req, res));
 
