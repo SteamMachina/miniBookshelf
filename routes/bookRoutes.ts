@@ -4,6 +4,25 @@ import express from "express";
 const router = express.Router();
 const bookController = new BookController();
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           example: "123"
+ *         name:
+ *           type: string
+ *           example: "Alice"
+ *         email:
+ *           type: string
+ *           format: email
+ *           example: "alice@example.com"
+ */
+
 // routes
 router.post("/", (req, res) => bookController.createBook(req, res));
 router.get("/", (req, res) => bookController.getAllBooks(req, res));
@@ -59,15 +78,11 @@ router.get("/hello", (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                   example: 1
+ *               $red: "#/components/schemas/User"
  */
 router.get("/users/:id", (req, res) => {
   const { id } = req.params;
-  res.json({ id });
+  res.json({ id, name: "Lily", email: "lily.kami@efrei.net" });
 });
 router.get("/:id", (req, res) => bookController.getByid(req, res));
 
