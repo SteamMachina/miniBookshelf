@@ -14,6 +14,12 @@ describe("Server Integration Tests", () => {
     expect(res.status).toBe(201);
   });
 
+  it("POST /books with empty body returns 400", async () => {
+    const res = await request(app).post("/books").send({});
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+  });
+
   // get all books
   it("GET /books returns void", async () => {
     const res = await request(app).get("/books");

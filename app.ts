@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import bookRoutes from "./routes/bookRoutes";
 import cors from "cors";
 import { connectDB } from "./config/db";
+import swaggerUi from "swagger-ui-express";
+import swaggerJSDoc from "swagger-jsdoc";
 
 dotenv.config();
 
@@ -13,6 +15,19 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
+
+// swagger
+const swaggerSpec = swaggerJSDoc({
+  definition: {
+    openapi: "3.0.3",
+    info: { title: "MiniBookshelf API", version: "1.0.0" },
+    servers: [{ url: "http://localhost:3000" }],
+  },
+  // Adjusted to match your repo structure (no src/ folder)
+  apis: ["./**/*.ts"],
+});
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // routes
 app.use("/books", bookRoutes);

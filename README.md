@@ -30,3 +30,5 @@ npm install dotenv
 npm install --save-dev jest
 npm install --save-dev @swc/jest @swc/core
 npm install --save-dev supertest @types/supertest
+npm install --save swagger-ui-express swagger-jsdoc
+npm i --save-dev @types/swagger-jsdoc
